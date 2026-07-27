@@ -4,6 +4,9 @@ date: 2026-07-23
 categories: [finance, asset-pricing]
 tags: [asset-pricing, mean-variance, SDF, CAPM, ICAPM, APT, Hansen-Jagannathan]
 math: true
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
 ---
 
 > John H. Cochrane, *Asset Pricing* (Revised Ed., Princeton University Press, 2005)의 5~9장을 공부하며 정리한 노트입니다.
