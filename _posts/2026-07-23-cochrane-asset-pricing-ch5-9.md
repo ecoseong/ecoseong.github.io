@@ -127,7 +127,7 @@ $$
 R^i = R^\ast + w^i R^{e\ast} + n^i \tag{5.11}
 $$
 
-여기서 $w^i$는 스칼라, $n^i$는 $E(n^i)=0$인 초과수익률이며, 세 성분은 서로 직교합니다: $E(R^\astR^{e\ast}) = E(R^\astn^i) = E(R^{e\ast}n^i) = 0$. (증명은 **부록 A.2**.)
+여기서 $w^i$는 스칼라, $n^i$는 $E(n^i)=0$인 초과수익률이며, 세 성분은 서로 직교합니다: $E(R^\ast R^{e\ast}) = E(R^\ast n^i) = E(R^{e\ast}n^i) = 0$. (증명은 **부록 A.2**.)
 
 이 분해로부터 평균-분산 프론티어의 완전한 특성화가 바로 따라옵니다.
 
@@ -161,10 +161,10 @@ $$
 |---|---|
 | 1 | $E(R^{\ast2}) = 1/E(x^{\ast2})$ |
 | 2 | $x^\ast = R^\ast/E(R^{\ast2})$ (정의의 역변환) |
-| 3 | $E(R^{\ast2}) = E(R^\astR)\;\forall R\in R$ — $x^\ast$처럼 $R^\ast$도 가격을 대표할 수 있음을 보여주는 대안적 정의 |
+| 3 | $E(R^{\ast2}) = E(R^\ast R)\;\forall R\in R$ — $x^\ast$처럼 $R^\ast$도 가격을 대표할 수 있음을 보여주는 대안적 정의 |
 | 4 | $E(R^e) = E(R^{e\ast}R^e)\;\forall R^e \in R^e$ |
 | 5 | 무위험자산이 있으면 $R^f = 1/E(x^\ast) = E(R^{\ast2})/E(R^\ast)$ |
-| 6 | $E(R^\astR^{e\ast}) = 0$ (직교) |
+| 6 | $E(R^\ast R^{e\ast}) = 0$ (직교) |
 | 7 | 프론티어는 $R^{mv}=R^\ast+wR^{e\ast}$ |
 | 8 | $R^\ast$는 최소 2차 모멘트 수익률 |
 | 9 | $E(R^{e\ast}) = E(R^{e\ast2})$, 따라서 $\mathrm{var}(R^{e\ast}) = E(R^{e\ast})[1-E(R^{e\ast})]$ |
@@ -567,15 +567,15 @@ $$
 
 **한 가지 표기 주의**: 여기서 "직교(orthogonal)"는 $E(XY)=0$을 뜻하며, 이는 통계적 "무상관" $\mathrm{cov}(X,Y)=0$과 **다릅니다** ($E(X)$나 $E(Y)$가 0이 아닌 한 서로 다른 조건입니다). 이 구분을 놓치면 아래 A.6의 계산에서 혼란이 생깁니다.
 
-**(i) $R^\ast\perp R^{e\ast}$.** $R^\ast=x^\ast/E(x^{\ast2})$이고 $x^\ast$는 임의의 payoff $y$에 대해 $p(y)=E(x^\asty)$를 만족하므로, $R^{e\ast}$가 가격이 0인 초과수익률임을 이용하면
+**(i) $R^\ast\perp R^{e\ast}$.** $R^\ast=x^\ast/E(x^{\ast2})$이고 $x^\ast$는 임의의 payoff $y$에 대해 $p(y)=E(x^\ast y)$를 만족하므로, $R^{e\ast}$가 가격이 0인 초과수익률임을 이용하면
 
 $$
-E(R^\astR^{e\ast}) = \frac{E(x^\astR^{e\ast})}{E(x^{\ast2})} = \frac{p(R^{e\ast})}{E(x^{\ast2})} = \frac{0}{E(x^{\ast2})}=0
+E(R^\ast R^{e\ast}) = \frac{E(x^\ast R^{e\ast})}{E(x^{\ast2})} = \frac{p(R^{e\ast})}{E(x^{\ast2})} = \frac{0}{E(x^{\ast2})}=0
 $$
 
 같은 논리로 $R^\ast$는 **임의의** 초과수익률과 직교합니다.
 
-**(ii) 분해의 존재.** 임의의 $w^i$에 대해 $n^i \equiv R^i - R^\ast - w^iR^{e\ast}$로 정의하면, $R^i, R^\ast$는 가격이 1(수익률)이고 $R^{e\ast}$는 가격이 0이므로 $n^i$의 가격은 $1-1-0=0$ — 즉 $n^i$는 자동으로 초과수익률입니다. (i)에 의해 임의의 초과수익률은 $R^\ast$와 직교하므로 $E(R^\astn^i)=0$은 **어떤 $w^i$를 고르든** 항상 성립합니다.
+**(ii) 분해의 존재.** 임의의 $w^i$에 대해 $n^i \equiv R^i - R^\ast - w^iR^{e\ast}$로 정의하면, $R^i, R^\ast$는 가격이 1(수익률)이고 $R^{e\ast}$는 가격이 0이므로 $n^i$의 가격은 $1-1-0=0$ — 즉 $n^i$는 자동으로 초과수익률입니다. (i)에 의해 임의의 초과수익률은 $R^\ast$와 직교하므로 $E(R^\ast n^i)=0$은 **어떤 $w^i$를 고르든** 항상 성립합니다.
 
 **(iii) $E(n^i)=0$이 되도록 $w^i$ 선택.** $n^i$가 초과수익률이므로 $R^{e\ast}$의 정의적 성질(§1.2의 성질 4를 $R^e=n^i$에 적용)에 의해 $E(n^i)=E(R^{e\ast}n^i)$입니다. 따라서 $E(n^i)=0 \iff E(R^{e\ast}n^i)=0$ — 즉 $w^i$를 $E(n^i)=0$이 되도록 고르기만 하면 세 번째 직교조건도 자동으로 만족됩니다. $n^i$의 정의에서 $E(n^i)=E(R^i)-E(R^\ast)-w^iE(R^{e\ast})$는 $w^i$에 대해 아핀(affine)이고 $E(R^{e\ast})\neq0$(위험중립이 아닌 한)이므로
 
@@ -585,7 +585,7 @@ $$
 
 로 유일하게 풀립니다. 이로써 존재성과 세 직교조건이 모두 확인되었습니다. $\blacksquare$
 
-**무위험이자율 표현 (5.13)의 도출.** 성질 3($E(R^{\ast2})=E(R^\astR)\;\forall R$)을 상수인 $R^f$에 적용하면 $E(R^{\ast2})=R^fE(R^\ast)$, 즉
+**무위험이자율 표현 (5.13)의 도출.** 성질 3($E(R^{\ast2})=E(R^\ast R)\;\forall R$)을 상수인 $R^f$에 적용하면 $E(R^{\ast2})=R^fE(R^\ast)$, 즉
 
 $$
 R^f = \frac{E(R^{\ast2})}{E(R^\ast)}
@@ -633,10 +633,10 @@ $$
 
 ## A.4 — 6장 동치성 정리들의 증명
 
-**(a) $m\Rightarrow$ 베타표현, $x^\ast$/$R^\ast$ 사용 (§2.1).** $p(y)=E(my)=E(x^\asty)\;\forall y\in X$이므로 $R^i$(가격 1)에 적용하면
+**(a) $m\Rightarrow$ 베타표현, $x^\ast$/$R^\ast$ 사용 (§2.1).** $p(y)=E(my)=E(x^\ast y)\;\forall y\in X$이므로 $R^i$(가격 1)에 적용하면
 
 $$
-1 = E(mR^i) = E(x^\astR^i) = E(x^\ast)E(R^i)+\mathrm{cov}(x^\ast,R^i)
+1 = E(mR^i) = E(x^\ast R^i) = E(x^\ast)E(R^i)+\mathrm{cov}(x^\ast,R^i)
 $$
 
 $$
@@ -703,13 +703,13 @@ $$
 
 세 returns 모두 $R^\ast+wR^{e\ast}$ 형태이므로, 각각의 정의적 성질로부터 $w$를 풉니다.
 
-**제로베타수익률.** 정의상 $\mathrm{cov}(R^\ast,R^\gamma)=0$. 성질 3(어떤 수익률 $R$에 대해서도 $E(R^\astR)=E(R^{\ast2})$)을 $R=R^\gamma$에 적용하면 $E(R^\astR^\gamma)=E(R^{\ast2})$는 항상 성립합니다. 이를 공분산 정의에 대입:
+**제로베타수익률.** 정의상 $\mathrm{cov}(R^\ast,R^\gamma)=0$. 성질 3(어떤 수익률 $R$에 대해서도 $E(R^\ast R)=E(R^{\ast2})$)을 $R=R^\gamma$에 적용하면 $E(R^\ast R^\gamma)=E(R^{\ast2})$는 항상 성립합니다. 이를 공분산 정의에 대입:
 
 $$
 0 = \mathrm{cov}(R^\ast,R^\gamma) = E(R^{\ast2}) - E(R^\ast)E(R^\gamma) \;\Longrightarrow\; E(R^\gamma)=\frac{E(R^{\ast2})}{E(R^\ast)} \equiv \gamma
 $$
 
-이제 $R^\gamma=R^\ast+wR^{e\ast}$에서 $w$를 풀기 위해, $\mathrm{cov}(R^\ast,R^\ast+wR^{e\ast})$를 직접 계산합니다. **주의**: 여기서 $\mathrm{cov}(R^\ast,R^{e\ast}) = E(R^\astR^{e\ast})-E(R^\ast)E(R^{e\ast}) = 0-E(R^\ast)E(R^{e\ast})$입니다 — $R^\ast\perp R^{e\ast}$(즉 $E(R^\astR^{e\ast})=0$)이지만 이는 무상관($\mathrm{cov}=0$)을 의미하지 않습니다! 따라서
+이제 $R^\gamma=R^\ast+wR^{e\ast}$에서 $w$를 풀기 위해, $\mathrm{cov}(R^\ast,R^\ast+wR^{e\ast})$를 직접 계산합니다. **주의**: 여기서 $\mathrm{cov}(R^\ast,R^{e\ast}) = E(R^\ast R^{e\ast})-E(R^\ast)E(R^{e\ast}) = 0-E(R^\ast)E(R^{e\ast})$입니다 — $R^\ast\perp R^{e\ast}$(즉 $E(R^\ast R^{e\ast})=0$)이지만 이는 무상관($\mathrm{cov}=0$)을 의미하지 않습니다! 따라서
 
 $$
 0=\mathrm{cov}(R^\ast,R^\gamma) = \mathrm{var}(R^\ast) + w\,\mathrm{cov}(R^\ast,R^{e\ast}) = \mathrm{var}(R^\ast) - wE(R^\ast)E(R^{e\ast})
