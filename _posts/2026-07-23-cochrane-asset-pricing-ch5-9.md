@@ -4,14 +4,13 @@ date: 2026-07-23
 categories: [finance, asset-pricing]
 tags: [asset-pricing, mean-variance, SDF, CAPM, ICAPM, APT, Hansen-Jagannathan]
 math: true
-markdown: kramdown
-kramdown:
-  math_engine: mathjax
 ---
 
-> John H. Cochrane, *Asset Pricing* (Revised Ed., Princeton University Press, 2005)의 5~9장을 공부하며 정리한 노트입니다.
+> John H. Cochrane, *Asset Pricing* (Revised Ed., Princeton University Press, 2005)의 5~9장을 공부하며 정리한 노트입니다. 본문에는 각 결과가 "왜 성립하는지"에 대한 핵심 아이디어와 전개 과정을 담았고, 형식적인 증명이 필요한 부분은 뒤쪽 **부록**으로 분리했습니다.
+>
+> *Math rendering 참고: GitHub 자체 렌더링은 `$$...$$`, `$...$`를 지원하지만, Jekyll 블로그라면 MathJax/KaTeX 플러그인이 별도로 필요할 수 있습니다.*
 
-## 시작에 앞서
+## 들어가며
 
 1~4장에서는 "가격 = 기대할인 payoff", 즉
 
@@ -23,7 +22,7 @@ $$p_t = E_t(m_{t+1} x_{t+1})$$
 
 장별 흐름은 다음과 같습니다.
 
-- **5장**: 자산수익률만 가지고 평균-분산 프론티어를 구성하고, 이를 할인인자 언어의 $x^*$와 대응시키는 $R^*, R^{e*}$라는 두 특수 수익률을 도입합니다.
+- **5장**: 자산수익률만 가지고 평균-분산 프론티어를 구성하고, 이를 할인인자 언어의 $x^\ast$와 대응시키는 $R^\ast, R^{e\ast}$라는 두 특수 수익률을 도입합니다.
 - **6장**: 할인인자 ↔ 베타표현 ↔ 평균-분산 프론티어, 이 세 표현 사이를 양방향으로 오가는 정리들을 완성합니다.
 - **7장**: 이 동치성이 실증분석에 던지는 함의 — 왜 "모형이 하나도 없어도" 베타표현이나 할인인자를 항상 찾을 수 있는지, 그래서 진짜 내용은 어디에 있는지를 다룹니다.
 - **8장**: 지금까지의 모든 논의는 조건부(conditional) 기대값을 다뤘어야 하는데, 이를 무조건부(unconditional) 모멘트만으로 다루는 방법 — scaled payoff, managed portfolio — 을 다룹니다.
@@ -43,8 +42,8 @@ $$p_t = E_t(m_{t+1} x_{t+1})$$
 | $\Sigma$ | 수익률의 분산-공분산 행렬, $\Sigma = E[(R-E)(R-E)']$ |
 | $(\cdot)'$ | 전치(transpose) |
 | $\beta$ | 회귀계수(공분산 기반), $\lambda$는 팩터 위험프리미엄, $\gamma$는 절편(제로베타율) |
-| $x^*$ | payoff 공간 $X$ 위로 $m$을 사영(projection)한 것, $x^* = \mathrm{proj}(m \mid X)$ |
-| $R^*$, $R^{e*}$ | $x^*$에 대응하는 수익률, 그리고 평균을 대표하는 초과수익률 (5장에서 정의) |
+| $x^\ast$ | payoff 공간 $X$ 위로 $m$을 사영(projection)한 것, $x^\ast = \mathrm{proj}(m \mid X)$ |
+| $R^\ast$, $R^{e\ast}$ | $x^\ast$에 대응하는 수익률, 그리고 평균을 대표하는 초과수익률 (5장에서 정의) |
 | $\mathrm{proj}(y \mid Z)$ | $y$를 공간 $Z$ 위로 최소제곱 사영 |
 
 ---
@@ -106,70 +105,70 @@ $$
 
 최소분산 포트폴리오는 (5.7)을 $\mu$에 대해 최소화하면 $\mu_{\min} = B/C$에서 나오고, 그 가중치는 $w = \Sigma^{-1}1/C$입니다. 또한 (5.8)에서 $w$가 $\mu$의 **선형함수**라는 사실로부터, 프론티어 위의 임의의 두 수익률의 포트폴리오(선형결합)는 다시 프론티어 위에 있다는 유명한 "두 펀드 분리(two-fund separation)" 성질이 바로 따라 나옵니다.
 
-## 1.3 직교분해: $R^\ast$ 와 $R^{e\ast}$
+## 1.3 직교분해: $R^\ast$와 $R^{e\ast}$
 
 라그랑지안 방법은 결과는 주지만 왜 그런지에 대한 통찰은 잘 안 줍니다. Hansen and Richard (1987)의 접근은 완전히 다른 방식으로, **대수 계산 없이** 순수하게 사영(projection)의 기하학만으로 프론티어를 얻어냅니다. 이 접근의 장점은 유한 개의 기저자산으로 payoff 공간을 만들 수 없는 경우(가령 8장의 조건부 정보 상황)에도 그대로 적용된다는 것입니다.
 
 두 개의 특수한 수익률을 정의합니다.
 
 $$
-R^* \equiv \frac{x^*}{p(x^*)} = \frac{x^*}{E(x^{*2})} \tag{5.9}
+R^\ast \equiv \frac{x^\ast}{p(x^\ast)} = \frac{x^\ast}{E(x^{\ast2})} \tag{5.9}
 $$
 
 $$
-R^{e*} \equiv \mathrm{proj}(1 \mid R^e), \qquad R^e \equiv \{x \in X : p(x) = 0\} \tag{5.10}
+R^{e\ast} \equiv \mathrm{proj}(1 \mid R^e), \qquad R^e \equiv \{x \in X : p(x) = 0\} \tag{5.10}
 $$
 
-$R^*$는 이미 익숙한 $x^*$(=$\mathrm{proj}(m\mid X)$)를 수익률로 정규화한 것이고, $R^{e*}$는 "1"(상수)을 초과수익률 공간 위로 사영한 것입니다. $x^*$가 내적을 통해 **가격**을 대표하는 것과 정확히 같은 방식으로, $R^{e*}$는 내적을 통해 초과수익률의 **평균**을 대표합니다: $E(R^e) = E(R^{e*}R^e)\;\forall R^e \in R^e$.
+$R^\ast$는 이미 익숙한 $x^\ast$(=$\mathrm{proj}(m\mid X)$)를 수익률로 정규화한 것이고, $R^{e\ast}$는 "1"(상수)을 초과수익률 공간 위로 사영한 것입니다. $x^\ast$가 내적을 통해 **가격**을 대표하는 것과 정확히 같은 방식으로, $R^{e\ast}$는 내적을 통해 초과수익률의 **평균**을 대표합니다: $E(R^e) = E(R^{e\ast}R^e)\;\forall R^e \in R^e$.
 
 **핵심 정리 (직교분해).** 임의의 수익률 $R^i$는 다음과 같이 분해된다.
 
 $$
-R^i = R^* + w^i R^{e*} + n^i \tag{5.11}
+R^i = R^\ast + w^i R^{e\ast} + n^i \tag{5.11}
 $$
 
-여기서 $w^i$는 스칼라, $n^i$는 $E(n^i)=0$인 초과수익률이며, 세 성분은 서로 직교합니다: $E(R^*R^{e*}) = E(R^*n^i) = E(R^{e*}n^i) = 0$. (증명은 **부록 A.2**.)
+여기서 $w^i$는 스칼라, $n^i$는 $E(n^i)=0$인 초과수익률이며, 세 성분은 서로 직교합니다: $E(R^\astR^{e\ast}) = E(R^\astn^i) = E(R^{e\ast}n^i) = 0$. (증명은 **부록 A.2**.)
 
 이 분해로부터 평균-분산 프론티어의 완전한 특성화가 바로 따라옵니다.
 
 **정리.** $R^{mv}$가 평균-분산 프론티어 위에 있다 $\iff$ 어떤 실수 $w$에 대해
 
 $$
-R^{mv} = R^* + wR^{e*} \tag{5.12}
+R^{mv} = R^\ast + wR^{e\ast} \tag{5.12}
 $$
 
 직관은 이렇습니다: (5.11)에서 $E(n^i)=0$이고 세 성분이 직교하므로
 
 $$
-E(R^i) = E(R^*) + w^i E(R^{e*}), \qquad \sigma^2(R^i) = \sigma^2(R^*+w^iR^{e*}) + \sigma^2(n^i)
+E(R^i) = E(R^\ast) + w^i E(R^{e\ast}), \qquad \sigma^2(R^i) = \sigma^2(R^\ast+w^iR^{e\ast}) + \sigma^2(n^i)
 $$
 
-즉 평균은 $R^*, R^{e*}$ 성분만으로 결정되고, $n^i$는 평균을 전혀 바꾸지 않으면서 분산만 순수하게 늘립니다. 따라서 주어진 평균을 갖는 수익률 중 분산을 최소화하려면 당연히 $n^i=0$으로 놓아야 하고, 그것이 바로 프론티어입니다.
+즉 평균은 $R^\ast, R^{e\ast}$ 성분만으로 결정되고, $n^i$는 평균을 전혀 바꾸지 않으면서 분산만 순수하게 늘립니다. 따라서 주어진 평균을 갖는 수익률 중 분산을 최소화하려면 당연히 $n^i=0$으로 놓아야 하고, 그것이 바로 프론티어입니다.
 
-기하학적으로 $R^*$는 원점에 가장 가까운(=2차 모멘트가 가장 작은) 수익률이고, 그래서 흥미롭게도 프론티어의 "비효율적인" 하단부에 위치합니다 — "시장포트폴리오"나 "부(wealth) 포트폴리오"가 아닙니다. $w$를 바꾸면서 $R^{e*}$ 방향으로 움직이면 프론티어를 쓸고 지나가게 됩니다.
+기하학적으로 $R^\ast$는 원점에 가장 가까운(=2차 모멘트가 가장 작은) 수익률이고, 그래서 흥미롭게도 프론티어의 "비효율적인" 하단부에 위치합니다 — "시장포트폴리오"나 "부(wealth) 포트폴리오"가 아닙니다. $w$를 바꾸면서 $R^{e\ast}$ 방향으로 움직이면 프론티어를 쓸고 지나가게 됩니다.
 
 무위험자산이 있을 때는 다음과 같은 특히 유용한 관계식이 성립합니다 (도출은 **부록 A.2** 참고).
 
 $$
-R^f = R^* + R^f R^{e*} \tag{5.13}
+R^f = R^\ast + R^f R^{e\ast} \tag{5.13}
 $$
 
-## 1.4 $R^*, R^{e*}, x^*$의 주요 성질
+## 1.4 $R^\ast, R^{e\ast}, x^\ast$의 주요 성질
 
 앞으로 6장과 9장에서 반복적으로 쓰이는 성질들을 표로 정리합니다. (도출 과정은 정의 (5.9)-(5.10)을 직접 대입하면 대부분 한두 줄에 나옵니다.)
 
 | # | 성질 |
 |---|---|
-| 1 | $E(R^{*2}) = 1/E(x^{*2})$ |
-| 2 | $x^* = R^*/E(R^{*2})$ (정의의 역변환) |
-| 3 | $E(R^{*2}) = E(R^*R)\;\forall R\in R$ — $x^*$처럼 $R^*$도 가격을 대표할 수 있음을 보여주는 대안적 정의 |
-| 4 | $E(R^e) = E(R^{e*}R^e)\;\forall R^e \in R^e$ |
-| 5 | 무위험자산이 있으면 $R^f = 1/E(x^*) = E(R^{*2})/E(R^*)$ |
-| 6 | $E(R^*R^{e*}) = 0$ (직교) |
-| 7 | 프론티어는 $R^{mv}=R^*+wR^{e*}$ |
-| 8 | $R^*$는 최소 2차 모멘트 수익률 |
-| 9 | $E(R^{e*}) = E(R^{e*2})$, 따라서 $\mathrm{var}(R^{e*}) = E(R^{e*})[1-E(R^{e*})]$ |
-| 10 | 무위험자산이 있으면 $R^{e*} = 1 - \dfrac{E(R^*)}{E(R^{*2})}R^* = 1-\dfrac{1}{R^f}R^*$ |
+| 1 | $E(R^{\ast2}) = 1/E(x^{\ast2})$ |
+| 2 | $x^\ast = R^\ast/E(R^{\ast2})$ (정의의 역변환) |
+| 3 | $E(R^{\ast2}) = E(R^\astR)\;\forall R\in R$ — $x^\ast$처럼 $R^\ast$도 가격을 대표할 수 있음을 보여주는 대안적 정의 |
+| 4 | $E(R^e) = E(R^{e\ast}R^e)\;\forall R^e \in R^e$ |
+| 5 | 무위험자산이 있으면 $R^f = 1/E(x^\ast) = E(R^{\ast2})/E(R^\ast)$ |
+| 6 | $E(R^\astR^{e\ast}) = 0$ (직교) |
+| 7 | 프론티어는 $R^{mv}=R^\ast+wR^{e\ast}$ |
+| 8 | $R^\ast$는 최소 2차 모멘트 수익률 |
+| 9 | $E(R^{e\ast}) = E(R^{e\ast2})$, 따라서 $\mathrm{var}(R^{e\ast}) = E(R^{e\ast})[1-E(R^{e\ast})]$ |
+| 10 | 무위험자산이 있으면 $R^{e\ast} = 1 - \dfrac{E(R^\ast)}{E(R^{\ast2})}R^\ast = 1-\dfrac{1}{R^f}R^\ast$ |
 
 ## 1.5 할인인자의 평균-분산 프론티어: Hansen–Jagannathan Bound
 
@@ -202,7 +201,7 @@ $$
 수익률의 경우와 완전히 평행하게, 이 경계선 위의 $m$들도 3분해로 나타낼 수 있습니다 (도출은 **부록 A.3**):
 
 $$
-m = x^* + we^*, \qquad e^* \equiv 1-\mathrm{proj}(1\mid X) = 1-E(x)'E(xx')^{-1}x \tag{5.18}
+m = x^\ast + we^\ast, \qquad e^\ast \equiv 1-\mathrm{proj}(1\mid X) = 1-E(x)'E(xx')^{-1}x \tag{5.18}
 $$
 
 이 구성은 6장에서 조건부/무조건부 프론티어를 다룰 때, 그리고 21장의 equity premium puzzle 논의에서 다시 등장하는 핵심 도구입니다.
@@ -214,8 +213,8 @@ $$
 
 5장은 "할인인자가 있으면 $\Rightarrow$ 평균-분산 프론티어가 나온다"는 한쪽 방향만 보여줬습니다. 6장은 **양방향** 전체를 완성합니다. 아래 다섯 가지 명제가 이 장의 뼈대입니다.
 
-1. $p=E(mx) \Rightarrow$ 베타표현 (참조변수로 $m, x^*, R^*$ 등 사용 가능)
-2. $p=E(mx) \Rightarrow$ 평균-분산 프론티어 ($R^*$ 구성)
+1. $p=E(mx) \Rightarrow$ 베타표현 (참조변수로 $m, x^\ast, R^\ast$ 등 사용 가능)
+2. $p=E(mx) \Rightarrow$ 평균-분산 프론티어 ($R^\ast$ 구성)
 3. 평균-분산 프론티어 $\Rightarrow p=E(mx)$ ($m=a+bR^{mv}$)
 4. 베타표현 $\Rightarrow p=E(mx)$ ($m=b'f$)
 5. 프론티어 위의 수익률 $\Rightarrow$ 그 수익률을 참조변수로 하는 베타표현
@@ -236,21 +235,21 @@ $$
 
 즉 $m$ 자체를 팩터로 쓰는 단일-베타 표현이 곧바로 나옵니다. 예를 들어 소비기반모형 $m=\beta(c_{t+1}/c_t)^{-\gamma_{cr}}$을 쓰면, "기대수익률은 소비성장률에 대한 베타에 선형이다"라는 명제와 동치가 됩니다. 이때 $\lambda_m<0$이어야 하는데(소비가 늘 때 수익도 높은 자산은 한계효용 $m$과는 음의 상관), 이는 자유 파라미터가 아니라 $m$의 분산/평균의 비율로 **고정**됩니다.
 
-**팩터가 payoff/수익률로도 표현될 수 있다는 점이 중요합니다.** $m$을 payoff 공간 $X$ 위로 사영한 $x^*=\mathrm{proj}(m\mid X)$, 그리고 그 수익률 $R^*$ 역시 팩터로 쓸 수 있습니다 (도출은 **부록 A.4**):
+**팩터가 payoff/수익률로도 표현될 수 있다는 점이 중요합니다.** $m$을 payoff 공간 $X$ 위로 사영한 $x^\ast=\mathrm{proj}(m\mid X)$, 그리고 그 수익률 $R^\ast$ 역시 팩터로 쓸 수 있습니다 (도출은 **부록 A.4**):
 
 $$
-E(R^i) = \gamma + \beta_{i,x^*}\lambda_{x^*}, \qquad E(R^i) = \gamma + \beta_{i,R^*}\big[E(R^*)-\gamma\big] \tag{6.2}
+E(R^i) = \gamma + \beta_{i,x^\ast}\lambda_{x^\ast}, \qquad E(R^i) = \gamma + \beta_{i,R^\ast}\big[E(R^\ast)-\gamma\big] \tag{6.2}
 $$
 
-$R^*$ 자신에게 (6.2)를 적용하면 $E(R^*) = \gamma - \mathrm{var}(R^*)/E(R^*)$가 나오는데, 이는 $R^*$가 프론티어의 **하단(비효율적)** 구간에 있다는 사실과 정확히 일치합니다 — $R^*$의 팩터 위험프리미엄이 **음수**라는 것이죠.
+$R^\ast$ 자신에게 (6.2)를 적용하면 $E(R^\ast) = \gamma - \mathrm{var}(R^\ast)/E(R^\ast)$가 나오는데, 이는 $R^\ast$가 프론티어의 **하단(비효율적)** 구간에 있다는 사실과 정확히 일치합니다 — $R^\ast$의 팩터 위험프리미엄이 **음수**라는 것이죠.
 
-*주의할 특수 케이스*: $E(m), E(x^*), E(R^*)$가 0이면 나눗셈이 불가능합니다(무한 무위험이자율이라는 병리적 경우). $\mathrm{var}(m)$이 0인 경우(완전 위험중립)에도 공분산→베타 변환이 무너집니다.
+*주의할 특수 케이스*: $E(m), E(x^\ast), E(R^\ast)$가 0이면 나눗셈이 불가능합니다(무한 무위험이자율이라는 병리적 경우). $\mathrm{var}(m)$이 0인 경우(완전 위험중립)에도 공분산→베타 변환이 무너집니다.
 
 ## 2.2 평균-분산 프론티어 → 할인인자와 베타표현
 
-**정리.** $R^{mv}=R^*+wR^{e*}$가 평균-분산 프론티어 위에 있고 무위험이자율이 아니라면(무위험자산이 없을 땐 constant-mimicking-portfolio 수익률이 아니라면), $m=a+bR^{mv}$ 형태의 할인인자가 존재한다.
+**정리.** $R^{mv}=R^\ast+wR^{e\ast}$가 평균-분산 프론티어 위에 있고 무위험이자율이 아니라면(무위험자산이 없을 땐 constant-mimicking-portfolio 수익률이 아니라면), $m=a+bR^{mv}$ 형태의 할인인자가 존재한다.
 
-기하학적으로: $x^*(\propto R^*)$는 payoff 평면에 수직입니다. 프론티어 위의 임의의 $R^{mv}$를 늘렸다(b배) 줄였다(1벡터를 a만큼 빼서) 하면 $R^{e*}$ 성분을 상쇄시켜서 다시 $x^*$ 방향으로 돌아올 수 있습니다. $R^{mv}$가 프론티어 밖에 있었다면(즉 $n\neq0$ 성분이 있었다면) 아무리 늘리고 줄여도 $n$ 방향의 성분은 없앨 수 없으므로 $x^*$로 돌아올 수 없습니다. (대수적 증명: **부록 A.4**.)
+기하학적으로: $x^\ast(\propto R^\ast)$는 payoff 평면에 수직입니다. 프론티어 위의 임의의 $R^{mv}$를 늘렸다(b배) 줄였다(1벡터를 a만큼 빼서) 하면 $R^{e\ast}$ 성분을 상쇄시켜서 다시 $x^\ast$ 방향으로 돌아올 수 있습니다. $R^{mv}$가 프론티어 밖에 있었다면(즉 $n\neq0$ 성분이 있었다면) 아무리 늘리고 줄여도 $n$ 방향의 성분은 없앨 수 없으므로 $x^\ast$로 돌아올 수 없습니다. (대수적 증명: **부록 A.4**.)
 
 같은 논리를 **베타표현**에도 직접 적용할 수 있습니다.
 
@@ -278,19 +277,19 @@ $$
 
 이 대응은 **가역적**입니다 — $(\gamma,\lambda)$를 알면 $(a,b)$를 복원할 수 있고 그 반대도 가능합니다. $\lambda$의 해석이 특히 유용한데, "de-mean된 팩터의 가격"이라는 의미를 가집니다: 팩터가 (초과)수익률이면 $\lambda = E(f)-\gamma$, 즉 팩터의 위험프리미엄 그 자체가 됩니다.
 
-**팩터-모방 포트폴리오(factor-mimicking portfolio).** 팩터 $f$가 직접 거래 가능한 자산이 아닐 때는, $f^* = \mathrm{proj}(f\mid X)$ (payoff), 또는 이를 정규화한 수익률 버전을 대신 쓸 수 있습니다. $x^*=\mathrm{proj}(m\mid X)$가 $m$의 모든 가격결정 정보를 담고 있는 것과 완전히 같은 논리로, $f^*$는 원래 팩터 $f$와 동일한 가격결정 함의를 가지면서 데이터로 직접 관측 가능하다는 장점이 있습니다.
+**팩터-모방 포트폴리오(factor-mimicking portfolio).** 팩터 $f$가 직접 거래 가능한 자산이 아닐 때는, $f^\ast = \mathrm{proj}(f\mid X)$ (payoff), 또는 이를 정규화한 수익률 버전을 대신 쓸 수 있습니다. $x^\ast=\mathrm{proj}(m\mid X)$가 $m$의 모든 가격결정 정보를 담고 있는 것과 완전히 같은 논리로, $f^\ast$는 원래 팩터 $f$와 동일한 가격결정 함의를 가지면서 데이터로 직접 관측 가능하다는 장점이 있습니다.
 
 ## 2.4 무위험이자율의 세 가지 대응물
 
-무위험자산이 없는 경제에서는, "무위험이자율"이 하던 역할을 대신할 세 가지 서로 다른 수익률이 필요합니다. 모두 $R^*+wR^{e*}$ 형태로 표현되지만 $w$가 다릅니다.
+무위험자산이 없는 경제에서는, "무위험이자율"이 하던 역할을 대신할 세 가지 서로 다른 수익률이 필요합니다. 모두 $R^\ast+wR^{e\ast}$ 형태로 표현되지만 $w$가 다릅니다.
 
-| 이름 | 정의 | $R^*+wR^{e*}$에서 $w$ | 무위험자산 있을 때 |
+| 이름 | 정의 | $R^\ast+wR^{e\ast}$에서 $w$ | 무위험자산 있을 때 |
 |---|---|---|---|
-| 제로베타수익률 $R^\gamma$ | $R^*$와 무상관인 MV효율적 수익률 | $\dfrac{\mathrm{var}(R^*)}{E(R^*)E(R^{e*})}$ | $R^f$로 수렴 |
-| 최소분산수익률 $R^{\min\,var}$ | 분산을 최소화하는 수익률 | $\dfrac{E(R^*)}{1-E(R^{e*})}$ | $R^f$로 수렴 |
-| 상수모방포트폴리오 $\hat R$ | $\mathrm{proj}(1\mid X)$의 수익률 | $\dfrac{E(R^{*2})}{E(R^*)}$ | $R^f$로 수렴 |
+| 제로베타수익률 $R^\gamma$ | $R^\ast$와 무상관인 MV효율적 수익률 | $\dfrac{\mathrm{var}(R^\ast)}{E(R^\ast)E(R^{e\ast})}$ | $R^f$로 수렴 |
+| 최소분산수익률 $R^{\min\,var}$ | 분산을 최소화하는 수익률 | $\dfrac{E(R^\ast)}{1-E(R^{e\ast})}$ | $R^f$로 수렴 |
+| 상수모방포트폴리오 $\hat R$ | $\mathrm{proj}(1\mid X)$의 수익률 | $\dfrac{E(R^{\ast2})}{E(R^\ast)}$ | $R^f$로 수렴 |
 
-무위험자산이 존재하면 셋 모두 $R^f = R^* + R^fR^{e*}$로 일치합니다(**부록 A.6**에서 이 수렴을 보입니다). 무위험자산이 없으면 셋은 서로 다른 값이며, 특히 **상수모방포트폴리오 수익률**로는 할인인자를 만들 수 없고(2.2의 정리에서 제외되는 케이스), **최소분산수익률**로는 단일-베타 표현을 만들 수 없습니다(2.2의 두 번째 정리에서 제외되는 케이스). 이 두 예외는 각각 $E(m)=0$과 무한 제로베타율이라는 병리적 상황에 대응됩니다.
+무위험자산이 존재하면 셋 모두 $R^f = R^\ast + R^fR^{e\ast}$로 일치합니다(**부록 A.6**에서 이 수렴을 보입니다). 무위험자산이 없으면 셋은 서로 다른 값이며, 특히 **상수모방포트폴리오 수익률**로는 할인인자를 만들 수 없고(2.2의 정리에서 제외되는 케이스), **최소분산수익률**로는 단일-베타 표현을 만들 수 없습니다(2.2의 두 번째 정리에서 제외되는 케이스). 이 두 예외는 각각 $E(m)=0$과 무한 제로베타율이라는 병리적 상황에 대응됩니다.
 
 
 ---
@@ -307,7 +306,7 @@ $$
 
 **합동가설 문제(joint hypothesis problem).** "차익거래 기회가 없다"는 것과 "시장이 효율적/합리적이다"는 것은 다른 이야기입니다. 어떤 이상현상(anomaly)도 진짜 차익거래를 문서화하지 못하는 한, 그것을 설명하는 "합리적인" 할인인자가 항상 존재할 수 있습니다. 시장이 "비합리적"이려면, 가격을 만드는 할인인자가 실물경제의 한계대체율과 **단절**되어 있어야 하는데 — 이는 결국 다시 할인인자의 경제 모형을 specify하고 검정하는 문제로 돌아옵니다. Fama (1970)의 표현으로는, 모든 효율성 검정은 "효율성 + 균형모형"에 대한 **합동** 검정입니다.
 
-**팩터의 개수는 의미 없는 질문이다.** $m=b'f$가 유일한 표현이 아니므로("몇 개의 팩터가 필요한가?"), 다중-팩터 모형을 하나의 팩터($m=b'f$ 자체, 혹은 그 모방 포트폴리오 $x^*$나 $R^*$)로 항상 축약할 수 있고, 반대로 팩터를 인위적으로 쪼개서 개수를 늘릴 수도 있습니다. 팩터의 "개수"보다 중요한 건 팩터가 경제적으로 잘 해석되는지 여부입니다.
+**팩터의 개수는 의미 없는 질문이다.** $m=b'f$가 유일한 표현이 아니므로("몇 개의 팩터가 필요한가?"), 다중-팩터 모형을 하나의 팩터($m=b'f$ 자체, 혹은 그 모방 포트폴리오 $x^\ast$나 $R^\ast$)로 항상 축약할 수 있고, 반대로 팩터를 인위적으로 쪼개서 개수를 늘릴 수도 있습니다. 팩터의 "개수"보다 중요한 건 팩터가 경제적으로 잘 해석되는지 여부입니다.
 
 **할인인자 언어가 승리한 이유.** 역사적으로 초기 자산가격결정이론(Markowitz 1952)은 축을 "IBM 주식", "GM 주식"이 아니라 포트폴리오의 **평균과 분산**으로 잡았습니다 — 효용을 소비가 아니라 평균/분산에 대해 정의한 것이죠. 저자는 이것이 역사적 우연이며, 상태-조건부 소비를 축으로 잡는 것(할인인자 접근)이 훨씬 자연스러운 미시경제학적 사상(mapping)이라고 봅니다. 할인인자 언어의 실질적 이점은 (1) 채권·옵션·주식을 포함해 **모든 자산**에 하나의 방정식 $p=E(mx)$로 접근 가능하다는 점, (2) 무차익조건($m>0$)을 손쉽게 부가할 수 있다는 점, (3) 다기간모형으로 자연스럽게 확장된다는 점($p_t = E_t\sum_j m_{t,t+j}x_{t+j}$)입니다.
 
@@ -378,7 +377,7 @@ $$
 
 > 무조건부 프론티어 위에 있으면 $\Rightarrow$ 조건부 프론티어 위에 있다. (역은 성립하지 않는다.)
 
-이는 5장의 직교분해 $R^{mv}=R^*+wR^{e*}$로 아주 깔끔하게 보입니다. 반복기댓값의 법칙 덕분에 **동일한** $x^*, R^*, R^{e*}$가 조건부·무조건부 가격/평균을 모두 대표합니다. 조건부 프론티어는 $w$가 시점-$t$ 정보집합에 속한 **임의의 (시간에 따라 변하는) 값**이어도 되지만, 무조건부 프론티어는 $w$가 **상수**여야 합니다. 상수는 당연히 정보집합에 속하지만 그 역은 아니므로, 무조건부 효율성(관리된 포트폴리오 포함)이 조건부 효율성보다 엄격히 강한 조건임을 바로 알 수 있습니다. (**부록 A.7**에 브루트포스 논증도 정리했습니다.)
+이는 5장의 직교분해 $R^{mv}=R^\ast+wR^{e\ast}$로 아주 깔끔하게 보입니다. 반복기댓값의 법칙 덕분에 **동일한** $x^\ast, R^\ast, R^{e\ast}$가 조건부·무조건부 가격/평균을 모두 대표합니다. 조건부 프론티어는 $w$가 시점-$t$ 정보집합에 속한 **임의의 (시간에 따라 변하는) 값**이어도 되지만, 무조건부 프론티어는 $w$가 **상수**여야 합니다. 상수는 당연히 정보집합에 속하지만 그 역은 아니므로, 무조건부 효율성(관리된 포트폴리오 포함)이 조건부 효율성보다 엄격히 강한 조건임을 바로 알 수 있습니다. (**부록 A.7**에 브루트포스 논증도 정리했습니다.)
 
 **Hansen–Richard Critique.** 조건부 선형 팩터모형은 투자자의 (관측 불가능한) 정보집합에 대해서만 정의되는데, 우리는 그보다 성긴 정보집합밖에 관측할 수 없습니다. 그래서 조건부 선형 팩터모형은 **원칙적으로 검정 불가능**합니다. Roll Critique(부 포트폴리오를 관측할 수 없다)에 대응하는, "투자자 정보집합을 관측할 수 없다"는 비판입니다.
 
@@ -409,10 +408,10 @@ $$
 
 CAPM은 $m=a+bR^W$ ($R^W$: 부(wealth) 포트폴리오 수익률)입니다. 이를 얻는 네 가지 서로 다른 경로를 살펴봅니다 — 어떤 가정이 다른 가정으로 대체 가능한지 보는 것 자체가 교육적입니다.
 
-**① 2기간, 이차효용(Quadratic Utility).** 노동소득이 없는 투자자가 $U=-\tfrac12(c^*-c_t)^2-\tfrac12\beta E(c^*-c_{t+1})^2$를 최대화한다고 합시다. 한계대체율은
+**① 2기간, 이차효용(Quadratic Utility).** 노동소득이 없는 투자자가 $U=-\tfrac12(c^\ast-c_t)^2-\tfrac12\beta E(c^\ast-c_{t+1})^2$를 최대화한다고 합시다. 한계대체율은
 
 $$
-m_{t+1} = \beta\frac{u'(c_{t+1})}{u'(c_t)} = \beta\frac{c^*-c_{t+1}}{c^*-c_t}
+m_{t+1} = \beta\frac{u'(c_{t+1})}{u'(c_t)} = \beta\frac{c^\ast-c_{t+1}}{c^\ast-c_t}
 $$
 
 이차효용은 한계효용을 소비에 대해 **선형**으로 만들어 줍니다(선형성 목표 달성). 2기간이므로 $t+1$기에 전부 소비하니 $c_{t+1}=W_{t+1}=R_{t+1}^W(W_t-c_t)$로 대체할 수 있고(대리변수 목표 달성), 정리하면 $m_{t+1}=a_t-b_tR_{t+1}^W$ 형태가 나옵니다 (완전한 전개는 **부록 A.8**).
@@ -517,7 +516,7 @@ $$
 기억할 만한 지도(map)를 하나 그려보면:
 
 $$
-\underbrace{p=E(mx)}_{\text{할인인자}} \;\overset{x^*=\mathrm{proj}(m|X)}{\Longleftrightarrow}\; \underbrace{R^{mv}=R^*+wR^{e*}}_{\text{평균-분산 프론티어}} \;\overset{R^{mv}\text{를 참조수익률로}}{\Longleftrightarrow}\; \underbrace{E(R^i)=\gamma+\beta_i\lambda}_{\text{베타표현}}
+\underbrace{p=E(mx)}_{\text{할인인자}} \;\overset{x^\ast=\mathrm{proj}(m|X)}{\Longleftrightarrow}\; \underbrace{R^{mv}=R^\ast+wR^{e\ast}}_{\text{평균-분산 프론티어}} \;\overset{R^{mv}\text{를 참조수익률로}}{\Longleftrightarrow}\; \underbrace{E(R^i)=\gamma+\beta_i\lambda}_{\text{베타표현}}
 $$
 
 그리고 CAPM·ICAPM·APT는 전부 이 삼각형의 "할인인자" 꼭짓점에, 서로 다른 경제적 가정(효용함수 형태 + 근사/선형화 기법, 또는 통계적 팩터구조)으로 특정 함수형을 대입한 특수 사례입니다.
@@ -568,34 +567,34 @@ $$
 
 **한 가지 표기 주의**: 여기서 "직교(orthogonal)"는 $E(XY)=0$을 뜻하며, 이는 통계적 "무상관" $\mathrm{cov}(X,Y)=0$과 **다릅니다** ($E(X)$나 $E(Y)$가 0이 아닌 한 서로 다른 조건입니다). 이 구분을 놓치면 아래 A.6의 계산에서 혼란이 생깁니다.
 
-**(i) $R^*\perp R^{e*}$.** $R^*=x^*/E(x^{*2})$이고 $x^*$는 임의의 payoff $y$에 대해 $p(y)=E(x^*y)$를 만족하므로, $R^{e*}$가 가격이 0인 초과수익률임을 이용하면
+**(i) $R^\ast\perp R^{e\ast}$.** $R^\ast=x^\ast/E(x^{\ast2})$이고 $x^\ast$는 임의의 payoff $y$에 대해 $p(y)=E(x^\asty)$를 만족하므로, $R^{e\ast}$가 가격이 0인 초과수익률임을 이용하면
 
 $$
-E(R^*R^{e*}) = \frac{E(x^*R^{e*})}{E(x^{*2})} = \frac{p(R^{e*})}{E(x^{*2})} = \frac{0}{E(x^{*2})}=0
+E(R^\astR^{e\ast}) = \frac{E(x^\astR^{e\ast})}{E(x^{\ast2})} = \frac{p(R^{e\ast})}{E(x^{\ast2})} = \frac{0}{E(x^{\ast2})}=0
 $$
 
-같은 논리로 $R^*$는 **임의의** 초과수익률과 직교합니다.
+같은 논리로 $R^\ast$는 **임의의** 초과수익률과 직교합니다.
 
-**(ii) 분해의 존재.** 임의의 $w^i$에 대해 $n^i \equiv R^i - R^* - w^iR^{e*}$로 정의하면, $R^i, R^*$는 가격이 1(수익률)이고 $R^{e*}$는 가격이 0이므로 $n^i$의 가격은 $1-1-0=0$ — 즉 $n^i$는 자동으로 초과수익률입니다. (i)에 의해 임의의 초과수익률은 $R^*$와 직교하므로 $E(R^*n^i)=0$은 **어떤 $w^i$를 고르든** 항상 성립합니다.
+**(ii) 분해의 존재.** 임의의 $w^i$에 대해 $n^i \equiv R^i - R^\ast - w^iR^{e\ast}$로 정의하면, $R^i, R^\ast$는 가격이 1(수익률)이고 $R^{e\ast}$는 가격이 0이므로 $n^i$의 가격은 $1-1-0=0$ — 즉 $n^i$는 자동으로 초과수익률입니다. (i)에 의해 임의의 초과수익률은 $R^\ast$와 직교하므로 $E(R^\astn^i)=0$은 **어떤 $w^i$를 고르든** 항상 성립합니다.
 
-**(iii) $E(n^i)=0$이 되도록 $w^i$ 선택.** $n^i$가 초과수익률이므로 $R^{e*}$의 정의적 성질(§1.2의 성질 4를 $R^e=n^i$에 적용)에 의해 $E(n^i)=E(R^{e*}n^i)$입니다. 따라서 $E(n^i)=0 \iff E(R^{e*}n^i)=0$ — 즉 $w^i$를 $E(n^i)=0$이 되도록 고르기만 하면 세 번째 직교조건도 자동으로 만족됩니다. $n^i$의 정의에서 $E(n^i)=E(R^i)-E(R^*)-w^iE(R^{e*})$는 $w^i$에 대해 아핀(affine)이고 $E(R^{e*})\neq0$(위험중립이 아닌 한)이므로
+**(iii) $E(n^i)=0$이 되도록 $w^i$ 선택.** $n^i$가 초과수익률이므로 $R^{e\ast}$의 정의적 성질(§1.2의 성질 4를 $R^e=n^i$에 적용)에 의해 $E(n^i)=E(R^{e\ast}n^i)$입니다. 따라서 $E(n^i)=0 \iff E(R^{e\ast}n^i)=0$ — 즉 $w^i$를 $E(n^i)=0$이 되도록 고르기만 하면 세 번째 직교조건도 자동으로 만족됩니다. $n^i$의 정의에서 $E(n^i)=E(R^i)-E(R^\ast)-w^iE(R^{e\ast})$는 $w^i$에 대해 아핀(affine)이고 $E(R^{e\ast})\neq0$(위험중립이 아닌 한)이므로
 
 $$
-w^i = \frac{E(R^i)-E(R^*)}{E(R^{e*})}
+w^i = \frac{E(R^i)-E(R^\ast)}{E(R^{e\ast})}
 $$
 
 로 유일하게 풀립니다. 이로써 존재성과 세 직교조건이 모두 확인되었습니다. $\blacksquare$
 
-**무위험이자율 표현 (5.13)의 도출.** 성질 3($E(R^{*2})=E(R^*R)\;\forall R$)을 상수인 $R^f$에 적용하면 $E(R^{*2})=R^fE(R^*)$, 즉
+**무위험이자율 표현 (5.13)의 도출.** 성질 3($E(R^{\ast2})=E(R^\astR)\;\forall R$)을 상수인 $R^f$에 적용하면 $E(R^{\ast2})=R^fE(R^\ast)$, 즉
 
 $$
-R^f = \frac{E(R^{*2})}{E(R^*)}
+R^f = \frac{E(R^{\ast2})}{E(R^\ast)}
 $$
 
-무위험자산이 있으면 $1\in X$이므로 $1=\mathrm{proj}(1\mid X)=\mathrm{proj}(1\mid R^e)+\mathrm{proj}(1\mid R^*)=R^{e*}+\mathrm{proj}(1\mid R^*)$. 여기서 $\mathrm{proj}(1\mid R^*)$는 $1$을 $R^*$에 회귀한 계수 $E(R^*\cdot1)/E(R^{*2})=E(R^*)/E(R^{*2})=1/R^f$를 곱한 것이므로 $1=R^{e*}+R^*/R^f$, 양변에 $R^f$를 곱하면
+무위험자산이 있으면 $1\in X$이므로 $1=\mathrm{proj}(1\mid X)=\mathrm{proj}(1\mid R^e)+\mathrm{proj}(1\mid R^\ast)=R^{e\ast}+\mathrm{proj}(1\mid R^\ast)$. 여기서 $\mathrm{proj}(1\mid R^\ast)$는 $1$을 $R^\ast$에 회귀한 계수 $E(R^\ast\cdot1)/E(R^{\ast2})=E(R^\ast)/E(R^{\ast2})=1/R^f$를 곱한 것이므로 $1=R^{e\ast}+R^\ast/R^f$, 양변에 $R^f$를 곱하면
 
 $$
-R^f = R^* + R^fR^{e*}
+R^f = R^\ast + R^fR^{e\ast}
 $$
 
 ## A.3 — Hansen–Jagannathan Bound의 도출 (§1.5)
@@ -630,47 +629,47 @@ $$
 \sigma^2(m) \ge [p-E(m)E(x)]'\Sigma_x^{-1}[p-E(m)E(x)]
 $$
 
-등호는 $\varepsilon=0$, 즉 $m=E(m)+[x-E(x)]'\gamma = x^*+we^*$ 형태일 때 성립합니다 — 이것이 할인인자의 평균-분산 프론티어입니다. $\blacksquare$
+등호는 $\varepsilon=0$, 즉 $m=E(m)+[x-E(x)]'\gamma = x^\ast+we^\ast$ 형태일 때 성립합니다 — 이것이 할인인자의 평균-분산 프론티어입니다. $\blacksquare$
 
 ## A.4 — 6장 동치성 정리들의 증명
 
-**(a) $m\Rightarrow$ 베타표현, $x^*$/$R^*$ 사용 (§2.1).** $p(y)=E(my)=E(x^*y)\;\forall y\in X$이므로 $R^i$(가격 1)에 적용하면
+**(a) $m\Rightarrow$ 베타표현, $x^\ast$/$R^\ast$ 사용 (§2.1).** $p(y)=E(my)=E(x^\asty)\;\forall y\in X$이므로 $R^i$(가격 1)에 적용하면
 
 $$
-1 = E(mR^i) = E(x^*R^i) = E(x^*)E(R^i)+\mathrm{cov}(x^*,R^i)
+1 = E(mR^i) = E(x^\astR^i) = E(x^\ast)E(R^i)+\mathrm{cov}(x^\ast,R^i)
 $$
 
 $$
-\Longrightarrow\; E(R^i) = \frac{1}{E(x^*)} - \frac{\mathrm{cov}(x^*,R^i)}{E(x^*)} = \frac{1}{E(x^*)} - \frac{\mathrm{cov}(x^*,R^i)}{\mathrm{var}(x^*)}\cdot\frac{\mathrm{var}(x^*)}{E(x^*)} = \gamma+\beta_{i,x^*}\lambda_{x^*}
+\Longrightarrow\; E(R^i) = \frac{1}{E(x^\ast)} - \frac{\mathrm{cov}(x^\ast,R^i)}{E(x^\ast)} = \frac{1}{E(x^\ast)} - \frac{\mathrm{cov}(x^\ast,R^i)}{\mathrm{var}(x^\ast)}\cdot\frac{\mathrm{var}(x^\ast)}{E(x^\ast)} = \gamma+\beta_{i,x^\ast}\lambda_{x^\ast}
 $$
 
-$R^*=x^*/E(x^{*2})$로 바꿔 쓰면 같은 대수가 그대로 적용되어 $E(R^i)=\gamma+\beta_{i,R^*}[E(R^*)-\gamma]$를 얻습니다(§2.1의 (6.2)).
+$R^\ast=x^\ast/E(x^{\ast2})$로 바꿔 쓰면 같은 대수가 그대로 적용되어 $E(R^i)=\gamma+\beta_{i,R^\ast}[E(R^\ast)-\gamma]$를 얻습니다(§2.1의 (6.2)).
 
-**(b) 평균-분산 프론티어 $\Rightarrow m$ (§2.2).** $R=R^*+wR^{e*}+n$에 대해 $m=a+bR$을 시도하고, $R^*, R^{e*}$를 정확히 가격결정하도록 $a,b$를 정합니다.
-
-$$
-1=E(mR^*)=aE(R^*)+bE(R^{*2}), \qquad 0=E(mR^{e*})=(a+bw)E(R^{e*})
-$$
-
-두 번째 식에서 (위험중립이 아니라면) $a=-bw$. 첫 번째 식에 대입: $1=b[E(R^{*2})-wE(R^*)]$이므로
+**(b) 평균-분산 프론티어 $\Rightarrow m$ (§2.2).** $R=R^\ast+wR^{e\ast}+n$에 대해 $m=a+bR$을 시도하고, $R^\ast, R^{e\ast}$를 정확히 가격결정하도록 $a,b$를 정합니다.
 
 $$
-b = \frac{-1}{wE(R^*)-E(R^{*2})}, \qquad a = \frac{w}{wE(R^*)-E(R^{*2})}
+1=E(mR^\ast)=aE(R^\ast)+bE(R^{\ast2}), \qquad 0=E(mR^{e\ast})=(a+bw)E(R^{e\ast})
 $$
 
-이제 이 $m$이 **임의의** payoff $x^i=y^iR^*+w^iR^{e*}+n^i$($y^i=p(x^i)$, 나머지는 가격 0)를 제대로 가격결정하는지 확인합니다. $m=[w-(R^*+wR^{e*}+n)]/[wE(R^*)-E(R^{*2})]$이므로 분자의 기댓값을 직교성($R^*\perp R^{e*}$, $R^*\perp n$, $R^{e*}\perp n$, $E(n)=0$, 그리고 성질 9 $E(R^{e*})=E(R^{e*2})$)을 이용해 전개하면
+두 번째 식에서 (위험중립이 아니라면) $a=-bw$. 첫 번째 식에 대입: $1=b[E(R^{\ast2})-wE(R^\ast)]$이므로
 
 $$
-E\big[(w-R^*-wR^{e*}-n)(y^iR^*+w^iR^{e*}+n^i)\big] = y^i\big[wE(R^*)-E(R^{*2})\big] - E(nn^i)
+b = \frac{-1}{wE(R^\ast)-E(R^{\ast2})}, \qquad a = \frac{w}{wE(R^\ast)-E(R^{\ast2})}
 $$
 
-(중간의 $ww^i$ 항은 $E(R^{e*})-E(R^{e*2})=0$이라 정확히 소거됩니다.) 따라서
+이제 이 $m$이 **임의의** payoff $x^i=y^iR^\ast+w^iR^{e\ast}+n^i$($y^i=p(x^i)$, 나머지는 가격 0)를 제대로 가격결정하는지 확인합니다. $m=[w-(R^\ast+wR^{e\ast}+n)]/[wE(R^\ast)-E(R^{\ast2})]$이므로 분자의 기댓값을 직교성($R^\ast\perp R^{e\ast}$, $R^\ast\perp n$, $R^{e\ast}\perp n$, $E(n)=0$, 그리고 성질 9 $E(R^{e\ast})=E(R^{e\ast2})$)을 이용해 전개하면
 
 $$
-E(mx^i) = y^i - \frac{E(nn^i)}{wE(R^*)-E(R^{*2})}
+E\big[(w-R^\ast-wR^{e\ast}-n)(y^iR^\ast+w^iR^{e\ast}+n^i)\big] = y^i\big[wE(R^\ast)-E(R^{\ast2})\big] - E(nn^i)
 $$
 
-$p(x^i)=y^i=E(mx^i)$가 **모든** $x^i$에 대해 성립하려면 $E(nn^i)=0$이 모든 $n^i$에 대해 성립해야 하고, 이는 $n=0$일 때만 가능합니다 — 즉 $R$이 프론티어 위에 있어야 합니다. 분모가 0이 되는 경우($w=E(R^{*2})/E(R^*)=R^f$)는 제외되는데, 이것이 정확히 무위험이자율(또는 무위험자산이 없을 때 상수모방포트폴리오)에 해당합니다. $\blacksquare$
+(중간의 $ww^i$ 항은 $E(R^{e\ast})-E(R^{e\ast2})=0$이라 정확히 소거됩니다.) 따라서
+
+$$
+E(mx^i) = y^i - \frac{E(nn^i)}{wE(R^\ast)-E(R^{\ast2})}
+$$
+
+$p(x^i)=y^i=E(mx^i)$가 **모든** $x^i$에 대해 성립하려면 $E(nn^i)=0$이 모든 $n^i$에 대해 성립해야 하고, 이는 $n=0$일 때만 가능합니다 — 즉 $R$이 프론티어 위에 있어야 합니다. 분모가 0이 되는 경우($w=E(R^{\ast2})/E(R^\ast)=R^f$)는 제외되는데, 이것이 정확히 무위험이자율(또는 무위험자산이 없을 때 상수모방포트폴리오)에 해당합니다. $\blacksquare$
 
 ## A.5 — 팩터모형 $\Longleftrightarrow$ 할인인자 (§2.3)
 
@@ -702,51 +701,51 @@ $$
 
 ## A.6 — 무위험이자율 세 대응물의 도출 (§2.4)
 
-세 returns 모두 $R^*+wR^{e*}$ 형태이므로, 각각의 정의적 성질로부터 $w$를 풉니다.
+세 returns 모두 $R^\ast+wR^{e\ast}$ 형태이므로, 각각의 정의적 성질로부터 $w$를 풉니다.
 
-**제로베타수익률.** 정의상 $\mathrm{cov}(R^*,R^\gamma)=0$. 성질 3(어떤 수익률 $R$에 대해서도 $E(R^*R)=E(R^{*2})$)을 $R=R^\gamma$에 적용하면 $E(R^*R^\gamma)=E(R^{*2})$는 항상 성립합니다. 이를 공분산 정의에 대입:
-
-$$
-0 = \mathrm{cov}(R^*,R^\gamma) = E(R^{*2}) - E(R^*)E(R^\gamma) \;\Longrightarrow\; E(R^\gamma)=\frac{E(R^{*2})}{E(R^*)} \equiv \gamma
-$$
-
-이제 $R^\gamma=R^*+wR^{e*}$에서 $w$를 풀기 위해, $\mathrm{cov}(R^*,R^*+wR^{e*})$를 직접 계산합니다. **주의**: 여기서 $\mathrm{cov}(R^*,R^{e*}) = E(R^*R^{e*})-E(R^*)E(R^{e*}) = 0-E(R^*)E(R^{e*})$입니다 — $R^*\perp R^{e*}$(즉 $E(R^*R^{e*})=0$)이지만 이는 무상관($\mathrm{cov}=0$)을 의미하지 않습니다! 따라서
+**제로베타수익률.** 정의상 $\mathrm{cov}(R^\ast,R^\gamma)=0$. 성질 3(어떤 수익률 $R$에 대해서도 $E(R^\astR)=E(R^{\ast2})$)을 $R=R^\gamma$에 적용하면 $E(R^\astR^\gamma)=E(R^{\ast2})$는 항상 성립합니다. 이를 공분산 정의에 대입:
 
 $$
-0=\mathrm{cov}(R^*,R^\gamma) = \mathrm{var}(R^*) + w\,\mathrm{cov}(R^*,R^{e*}) = \mathrm{var}(R^*) - wE(R^*)E(R^{e*})
+0 = \mathrm{cov}(R^\ast,R^\gamma) = E(R^{\ast2}) - E(R^\ast)E(R^\gamma) \;\Longrightarrow\; E(R^\gamma)=\frac{E(R^{\ast2})}{E(R^\ast)} \equiv \gamma
+$$
+
+이제 $R^\gamma=R^\ast+wR^{e\ast}$에서 $w$를 풀기 위해, $\mathrm{cov}(R^\ast,R^\ast+wR^{e\ast})$를 직접 계산합니다. **주의**: 여기서 $\mathrm{cov}(R^\ast,R^{e\ast}) = E(R^\astR^{e\ast})-E(R^\ast)E(R^{e\ast}) = 0-E(R^\ast)E(R^{e\ast})$입니다 — $R^\ast\perp R^{e\ast}$(즉 $E(R^\astR^{e\ast})=0$)이지만 이는 무상관($\mathrm{cov}=0$)을 의미하지 않습니다! 따라서
+
+$$
+0=\mathrm{cov}(R^\ast,R^\gamma) = \mathrm{var}(R^\ast) + w\,\mathrm{cov}(R^\ast,R^{e\ast}) = \mathrm{var}(R^\ast) - wE(R^\ast)E(R^{e\ast})
 $$
 
 $$
-\Longrightarrow\; w = \frac{\mathrm{var}(R^*)}{E(R^*)E(R^{e*})}
+\Longrightarrow\; w = \frac{\mathrm{var}(R^\ast)}{E(R^\ast)E(R^{e\ast})}
 $$
 
-**최소분산수익률.** $\mathrm{var}(R^*+wR^{e*})$를 $w$에 대해 최소화합니다.
+**최소분산수익률.** $\mathrm{var}(R^\ast+wR^{e\ast})$를 $w$에 대해 최소화합니다.
 
 $$
-\mathrm{var}(R^*+wR^{e*}) = \mathrm{var}(R^*) + 2w\,\mathrm{cov}(R^*,R^{e*}) + w^2\mathrm{var}(R^{e*}) = \mathrm{var}(R^*) - 2wE(R^*)E(R^{e*}) + w^2\mathrm{var}(R^{e*})
+\mathrm{var}(R^\ast+wR^{e\ast}) = \mathrm{var}(R^\ast) + 2w\,\mathrm{cov}(R^\ast,R^{e\ast}) + w^2\mathrm{var}(R^{e\ast}) = \mathrm{var}(R^\ast) - 2wE(R^\ast)E(R^{e\ast}) + w^2\mathrm{var}(R^{e\ast})
 $$
 
-$w$에 대해 미분해 0으로 놓으면 $w = E(R^*)E(R^{e*})/\mathrm{var}(R^{e*})$. 성질 9 ($\mathrm{var}(R^{e*})=E(R^{e*})[1-E(R^{e*})]$)를 대입하면
+$w$에 대해 미분해 0으로 놓으면 $w = E(R^\ast)E(R^{e\ast})/\mathrm{var}(R^{e\ast})$. 성질 9 ($\mathrm{var}(R^{e\ast})=E(R^{e\ast})[1-E(R^{e\ast})]$)를 대입하면
 
 $$
-w = \frac{E(R^*)E(R^{e*})}{E(R^{e*})[1-E(R^{e*})]} = \frac{E(R^*)}{1-E(R^{e*})}
+w = \frac{E(R^\ast)E(R^{e\ast})}{E(R^{e\ast})[1-E(R^{e\ast})]} = \frac{E(R^\ast)}{1-E(R^{e\ast})}
 $$
 
-**상수모방포트폴리오.** 성질 12 ($R^{e*}=\mathrm{proj}(1\mid X) - [E(R^*)/E(R^{*2})]R^*$, 무위험자산 없는 경우)를 재배열하면
+**상수모방포트폴리오.** 성질 12 ($R^{e\ast}=\mathrm{proj}(1\mid X) - [E(R^\ast)/E(R^{\ast2})]R^\ast$, 무위험자산 없는 경우)를 재배열하면
 
 $$
-\mathrm{proj}(1\mid X) = R^{e*} + \frac{E(R^*)}{E(R^{*2})}R^*
+\mathrm{proj}(1\mid X) = R^{e\ast} + \frac{E(R^\ast)}{E(R^{\ast2})}R^\ast
 $$
 
-양변의 가격을 취하면 ($p(R^{e*})=0,\,p(R^*)=1$) $p[\mathrm{proj}(1\mid X)] = E(R^*)/E(R^{*2})$. 따라서
+양변의 가격을 취하면 ($p(R^{e\ast})=0,\,p(R^\ast)=1$) $p[\mathrm{proj}(1\mid X)] = E(R^\ast)/E(R^{\ast2})$. 따라서
 
 $$
-\hat R \equiv \frac{\mathrm{proj}(1\mid X)}{p[\mathrm{proj}(1\mid X)]} = R^* + \frac{E(R^{*2})}{E(R^*)}R^{e*}, \qquad w=\frac{E(R^{*2})}{E(R^*)}
+\hat R \equiv \frac{\mathrm{proj}(1\mid X)}{p[\mathrm{proj}(1\mid X)]} = R^\ast + \frac{E(R^{\ast2})}{E(R^\ast)}R^{e\ast}, \qquad w=\frac{E(R^{\ast2})}{E(R^\ast)}
 $$
 
-(흥미롭게도 이 $w$는 제로베타**율**(rate) $\gamma=E(R^{*2})/E(R^*)$와 같은 숫자이지만, 이 가중치가 만드는 것은 제로베타 **수익률**이 아니라 상수모방포트폴리오 수익률입니다 — 서로 다른 두 개념이 같은 숫자를 경유해서 정의되는 것뿐입니다.)
+(흥미롭게도 이 $w$는 제로베타**율**(rate) $\gamma=E(R^{\ast2})/E(R^\ast)$와 같은 숫자이지만, 이 가중치가 만드는 것은 제로베타 **수익률**이 아니라 상수모방포트폴리오 수익률입니다 — 서로 다른 두 개념이 같은 숫자를 경유해서 정의되는 것뿐입니다.)
 
-**무위험자산이 있을 때 셋이 일치함을 확인.** 성질 5에서 이미 $R^f=E(R^{*2})/E(R^*)$이므로 상수모방포트폴리오 공식은 자동으로 $R^f$와 일치합니다. $R^f=R^*+R^fR^{e*}$의 양변에 기댓값을 취하면 $R^f=E(R^*)+R^fE(R^{e*})$, 즉 $R^f=E(R^*)/[1-E(R^{e*})]$ — 최소분산 공식과 일치합니다. 마지막으로 $R^f(1-E(R^{e*}))=E(R^*)$에 $R^f=E(R^{*2})/E(R^*)$를 대입해 정리하면 $\mathrm{var}(R^*)=E(R^{*2})E(R^{e*})$를 얻고, 양변을 $E(R^*)E(R^{e*})$로 나누면 $\mathrm{var}(R^*)/[E(R^*)E(R^{e*})] = E(R^{*2})/E(R^*)=R^f$ — 제로베타 공식과도 일치합니다. $\blacksquare$
+**무위험자산이 있을 때 셋이 일치함을 확인.** 성질 5에서 이미 $R^f=E(R^{\ast2})/E(R^\ast)$이므로 상수모방포트폴리오 공식은 자동으로 $R^f$와 일치합니다. $R^f=R^\ast+R^fR^{e\ast}$의 양변에 기댓값을 취하면 $R^f=E(R^\ast)+R^fE(R^{e\ast})$, 즉 $R^f=E(R^\ast)/[1-E(R^{e\ast})]$ — 최소분산 공식과 일치합니다. 마지막으로 $R^f(1-E(R^{e\ast}))=E(R^\ast)$에 $R^f=E(R^{\ast2})/E(R^\ast)$를 대입해 정리하면 $\mathrm{var}(R^\ast)=E(R^{\ast2})E(R^{e\ast})$를 얻고, 양변을 $E(R^\ast)E(R^{e\ast})$로 나누면 $\mathrm{var}(R^\ast)/[E(R^\ast)E(R^{e\ast})] = E(R^{\ast2})/E(R^\ast)=R^f$ — 제로베타 공식과도 일치합니다. $\blacksquare$
 
 
 ## A.7 — 조건부/무조건부 평균-분산 프론티어의 방향성 (§4.3)
@@ -761,59 +760,59 @@ $$
 
 역은 성립하지 않는 이유: 조건부 프론티어 위에 있다는 것은 "그 시점의 $E_t(R)$이 무엇이든, 그 값에 대해 분산이 최소"라는 뜻일 뿐입니다. 반면 무조건부 문제는 $E(R)=\mu$라는 하나의 평균만 고정하고 $E_t(R)$이 시점마다 어떻게 배분되는지는 자유롭게 둡니다 — 어떤 시점엔 $E_t(R)$을 올리고 다른 시점엔 내려서 평균 $\mu$를 맞출 수 있는데, 이런 재배분은 조건부 프론티어 위에 있으면서도 무조건부 분산을 더 낮출 여지를 남길 수 있습니다.
 
-**직교분해를 이용한 대안적 증명.** $x^*,R^*,R^{e*}$는 반복기댓값의 법칙에 의해 조건부·무조건부 가격/평균을 **동시에** 대표합니다(같은 확률변수가 둘 다에 씁니다). 따라서
+**직교분해를 이용한 대안적 증명.** $x^\ast,R^\ast,R^{e\ast}$는 반복기댓값의 법칙에 의해 조건부·무조건부 가격/평균을 **동시에** 대표합니다(같은 확률변수가 둘 다에 씁니다). 따라서
 
 $$
-\text{조건부 프론티어}: R^{mv}_{t+1}=R^*_{t+1}+w_tR^{e*}_{t+1} \quad (w_t\in I_t\text{인 임의의 값})
+\text{조건부 프론티어}: R^{mv}_{t+1}=R^\ast_{t+1}+w_tR^{e\ast}_{t+1} \quad (w_t\in I_t\text{인 임의의 값})
 $$
 $$
-\text{무조건부 프론티어}: R^{mv}_{t+1}=R^*_{t+1}+wR^{e*}_{t+1} \quad (w\text{는 상수})
+\text{무조건부 프론티어}: R^{mv}_{t+1}=R^\ast_{t+1}+wR^{e\ast}_{t+1} \quad (w\text{는 상수})
 $$
 
 상수는 항상 정보집합에 속하지만 그 역은 아니므로, "$w$가 상수"라는 조건이 "$w_t\in I_t$"라는 조건보다 엄격하게 더 강합니다 — 그래서 무조건부 효율성이 조건부 효율성을 함의하되 그 역은 아닙니다. $\blacksquare$
 
 ## A.8 — CAPM 유도 ①: 2기간 이차효용 (§5.1)
 
-$u(c)=-\tfrac12(c-c^*)^2$이므로 $u'(c)=c^*-c$. 따라서
+$u(c)=-\tfrac12(c-c^\ast)^2$이므로 $u'(c)=c^\ast-c$. 따라서
 
 $$
-m_{t+1} = \beta\frac{u'(c_{t+1})}{u'(c_t)} = \beta\,\frac{c^*-c_{t+1}}{c^*-c_t}
+m_{t+1} = \beta\frac{u'(c_{t+1})}{u'(c_t)} = \beta\,\frac{c^\ast-c_{t+1}}{c^\ast-c_t}
 $$
 
 예산제약 $c_{t+1}=W_{t+1}=R^W_{t+1}(W_t-c_t)$을 대입하면
 
 $$
-m_{t+1} = \beta\,\frac{c^*-R^W_{t+1}(W_t-c_t)}{c^*-c_t} = \underbrace{\frac{\beta c^*}{c^*-c_t}}_{a_t} \;-\; \underbrace{\frac{\beta(W_t-c_t)}{c^*-c_t}}_{b_t}\,R^W_{t+1}
+m_{t+1} = \beta\,\frac{c^\ast-R^W_{t+1}(W_t-c_t)}{c^\ast-c_t} = \underbrace{\frac{\beta c^\ast}{c^\ast-c_t}}_{a_t} \;-\; \underbrace{\frac{\beta(W_t-c_t)}{c^\ast-c_t}}_{b_t}\,R^W_{t+1}
 $$
 
 즉 $m_{t+1}=a_t-b_tR^W_{t+1}$ — CAPM의 (조건부) 형태입니다. $\blacksquare$
 
 ## A.9 — CAPM 유도 ③: 동적계획법과 이차 가치함수 (§5.1)
 
-수익률이 i.i.d.라고 가정하고, 가치함수를 $V(W_{t+1})=-\tfrac{\eta}{2}(W_{t+1}-W^*)^2$로 **추측**합니다. 벨만방정식은
+수익률이 i.i.d.라고 가정하고, 가치함수를 $V(W_{t+1})=-\tfrac{\eta}{2}(W_{t+1}-W^\ast)^2$로 **추측**합니다. 벨만방정식은
 
 $$
-V(W_t) = \max_{c_t}\; -\tfrac12(c_t-c^*)^2 - \tfrac{\beta\eta}{2}E\big[(R^W_{t+1}(W_t-c_t)-W^*)^2\big]
+V(W_t) = \max_{c_t}\; -\tfrac12(c_t-c^\ast)^2 - \tfrac{\beta\eta}{2}E\big[(R^W_{t+1}(W_t-c_t)-W^\ast)^2\big]
 $$
 
 $c_t$에 대한 1계조건은
 
 $$
-\hat c_t - c^* = \beta\eta\,E\big[(R^W_{t+1}(W_t-\hat c_t)-W^*)R^W_{t+1}\big]
+\hat c_t - c^\ast = \beta\eta\,E\big[(R^W_{t+1}(W_t-\hat c_t)-W^\ast)R^W_{t+1}\big]
 $$
 
 우변을 전개하고 $\hat c_t$에 대해 정리하면
 
 $$
-\hat c_t = \frac{c^*-\beta\eta E(R^W_{t+1})W^* + \beta\eta E(R^{W2}_{t+1})W_t}{1+\beta\eta E(R^{W2}_{t+1})}
+\hat c_t = \frac{c^\ast-\beta\eta E(R^W_{t+1})W^\ast + \beta\eta E(R^{W2}_{t+1})W_t}{1+\beta\eta E(R^{W2}_{t+1})}
 $$
 
-이는 $W_t$에 대해 **선형**입니다. 최적화된 목적함수 값 $V(W_t)$는 $\hat c_t$의 이차함수(원래 목적함수 형태)이고 $\hat c_t$가 $W_t$의 일차함수이므로, $V(W_t)$ 역시 $W_t$의 **이차함수**입니다 — 처음의 추측이 자기충족적(self-consistent)임이 확인됩니다(계수 $\eta, W^*$ 자체를 구체적으로 푸는 것은 통찰을 더해주지 않으므로 생략합니다).
+이는 $W_t$에 대해 **선형**입니다. 최적화된 목적함수 값 $V(W_t)$는 $\hat c_t$의 이차함수(원래 목적함수 형태)이고 $\hat c_t$가 $W_t$의 일차함수이므로, $V(W_t)$ 역시 $W_t$의 **이차함수**입니다 — 처음의 추측이 자기충족적(self-consistent)임이 확인됩니다(계수 $\eta, W^\ast$ 자체를 구체적으로 푸는 것은 통찰을 더해주지 않으므로 생략합니다).
 
-이제 포락선 정리($u'(c_t)=V'(W_t)$)를 이용해 할인인자를 구성합니다. $V'(W)=-\eta(W-W^*)$이므로
+이제 포락선 정리($u'(c_t)=V'(W_t)$)를 이용해 할인인자를 구성합니다. $V'(W)=-\eta(W-W^\ast)$이므로
 
 $$
-m_{t+1} = \beta\frac{V'(W_{t+1})}{u'(c_t)} = \frac{-\beta\eta(W_{t+1}-W^*)}{u'(c_t)} = \underbrace{\frac{\beta\eta W^*}{u'(c_t)}}_{a_t} \;+\; \underbrace{\left[\frac{-\beta\eta(W_t-c_t)}{u'(c_t)}\right]}_{b_t}R^W_{t+1}
+m_{t+1} = \beta\frac{V'(W_{t+1})}{u'(c_t)} = \frac{-\beta\eta(W_{t+1}-W^\ast)}{u'(c_t)} = \underbrace{\frac{\beta\eta W^\ast}{u'(c_t)}}_{a_t} \;+\; \underbrace{\left[\frac{-\beta\eta(W_t-c_t)}{u'(c_t)}\right]}_{b_t}R^W_{t+1}
 $$
 
 다시 CAPM 형태 $m_{t+1}=a_t+b_tR^W_{t+1}$를 얻습니다. 2기간 모형과 다른 점은, "부에 대한 이차 효용"이라는 다소 부자연스러운 가정을, **수익률 i.i.d. + 노동소득 없음 + 이자율 일정**이라는 (여전히 강하지만 훨씬 검증 가능한) 가정으로부터 이끌어냈다는 것입니다. $\blacksquare$
