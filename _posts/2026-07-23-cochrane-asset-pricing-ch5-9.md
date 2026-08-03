@@ -365,9 +365,9 @@ $$
 
 **조건부 모형이 무조건부 모형을 함의하지 않습니다.** 이 절의 가장 중요한 메시지입니다.
 
-- $m_{t+1}=a_t+b_t'f_{t+1}$, $p_t=E_t(m_{t+1}x_{t+1})$ $\centernot\Longrightarrow$ 상수 $a,b$가 존재해서 $m_{t+1}=a+b'f_{t+1}$, $E(p_t)=E(m_{t+1}x_{t+1})$
-- $E_t(R_{t+1})=\beta_t'\lambda_t$ $\centernot\Longrightarrow$ $E(R_{t+1})=\beta'\lambda$
-- **조건부** 평균-분산 효율성 $\centernot\Longrightarrow$ **무조건부** 평균-분산 효율성
+- $m_{t+1}=a_t+b_t'f_{t+1}$, $p_t=E_t(m_{t+1}x_{t+1})$ $\nRightarrow$ 상수 $a,b$가 존재해서 $m_{t+1}=a+b'f_{t+1}$, $E(p_t)=E(m_{t+1}x_{t+1})$
+- $E_t(R_{t+1})=\beta_t'\lambda_t$ $\nRightarrow$ $E(R_{t+1})=\beta'\lambda$
+- **조건부** 평균-분산 효율성 $\nRightarrow$ **무조건부** 평균-분산 효율성
 
 (단, 역방향은 성립합니다 — 관리된 포트폴리오를 포함시키기만 하면.)
 
@@ -551,11 +551,12 @@ $$
 $$
 E'w = \lambda(E'\Sigma^{-1}E)+\delta(E'\Sigma^{-1}1) = \lambda A+\delta B = \mu
 $$
+
 $$
 1'w = \lambda(1'\Sigma^{-1}E)+\delta(1'\Sigma^{-1}1) = \lambda B+\delta C = 1
 $$
 
-행렬형태 $\begin{pmatrix}A&B\\B&C\end{pmatrix}\begin{pmatrix}\lambda\\\delta\end{pmatrix}=\begin{pmatrix}\mu\\1\end{pmatrix}$를 크래머 공식으로 풀면
+행렬형태 $\begin{pmatrix}A&B\\\\B&C\end{pmatrix}\begin{pmatrix}\lambda\\\\\delta\end{pmatrix}=\begin{pmatrix}\mu\\\\1\end{pmatrix}$를 크래머 공식으로 풀면
 
 $$
 \lambda = \frac{C\mu-B}{AC-B^2}, \qquad \delta = \frac{A-B\mu}{AC-B^2}
@@ -771,6 +772,7 @@ $$
 $$
 \text{조건부 프론티어}: R^{mv}_{t+1}=R^\ast_{t+1}+w_tR^{e\ast}_{t+1} \quad (w_t\in I_t\text{인 임의의 값})
 $$
+
 $$
 \text{무조건부 프론티어}: R^{mv}_{t+1}=R^\ast_{t+1}+wR^{e\ast}_{t+1} \quad (w\text{는 상수})
 $$
