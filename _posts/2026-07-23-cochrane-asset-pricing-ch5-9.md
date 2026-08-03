@@ -175,7 +175,7 @@ $$
 지금까지는 수익률의 평균-분산 프론티어를 다뤘는데, 완전히 대칭적인 논리로 **할인인자 $m$의 평균-분산 프론티어**도 만들 수 있습니다. 출발점은 1장에서 이미 봤던 Sharpe ratio와 SDF 변동성 사이의 부등식입니다.
 
 $$
-\frac{\sigma(m)}{E(m)} \;\ge\; \frac{|E(R^e)|}{\sigma(R^e)} \tag{5.14}
+\frac{\sigma(m)}{E(m)} \;\ge\; \frac{\lvert E(R^e)\rvert}{\sigma(R^e)} \tag{5.14}
 $$
 
 도출 과정은 다음과 같습니다. $R^e$가 초과수익률이므로
@@ -184,7 +184,7 @@ $$
 0 = E(mR^e) = E(m)E(R^e) + \rho\,\sigma(m)\sigma(R^e)
 $$
 
-이고, $\rho$는 $m$과 $R^e$의 상관계수입니다. $\lvert\rho\rvert\le 1$이므로 정리하면 (5.14)가 바로 나옵니다.
+이고, $\rho$는 $m$과 $R^e$의 상관계수입니다. $\lvert \rho\rvert\le 1$이므로 정리하면 (5.14)가 바로 나옵니다.
 
 Hansen and Jagannathan (1991)의 통찰은 이 부등식을 **주어진 자산들을 가격결정할 수 있는 모든 $m$의 집합에 대한 제약**으로 읽는 것입니다. 임의의 가상 무위험이자율에 대해 최대 Sharpe ratio(=접점 포트폴리오)를 찾으면, 그 기울기가 바로 $\sigma(m)/E(m)$의 하한이 됩니다. 이로부터 아름다운 쌍대성(duality)이 나옵니다.
 
@@ -452,7 +452,7 @@ $$
 
 - **테일러 전개**: $m_{t+1}\approx g(E_t f_{t+1}) + g'(E_tf_{t+1})(f_{t+1}-E_tf_{t+1})$
 - **연속시간 극한**: 확산과정은 국소적으로 정규분포이므로, 이토의 보조정리를 적용하면 이산시간에서는 근사인 것이 연속시간에서는 **정확한** 선형화가 됩니다.
-- **Stein's Lemma**: $f, R$이 이변량정규이고 $g$가 미분가능, $E|g'(f)|<\infty$이면 $\mathrm{cov}[g(f),R]=E[g'(f)]\,\mathrm{cov}(f,R)$. 이 보조정리 하나로 $\mathrm{cov}(g(f),\cdot)$를 전부 $\mathrm{cov}(f,\cdot)$로 바꿔치기할 수 있습니다(적용 예시는 **부록 A.10**).
+- **Stein's Lemma**: $f, R$이 이변량정규이고 $g$가 미분가능, $E\lvert g'(f)\rvert<\infty$이면 $\mathrm{cov}[g(f),R]=E[g'(f)]\,\mathrm{cov}(f,R)$. 이 보조정리 하나로 $\mathrm{cov}(g(f),\cdot)$를 전부 $\mathrm{cov}(f,\cdot)$로 바꿔치기할 수 있습니다(적용 예시는 **부록 A.10**).
 
 다만 로그효용 CAPM에는 Stein's Lemma를 적용할 수 없다는 흥미로운 함정이 있습니다 — $R^W$가 정규분포를 따른다면 $E(1/R_{t+1}^{W2})$가 발산하기 때문입니다(로그효용 소비자는 절대 음의 소비를 선택하지 않으므로 $R^W$가 정규분포일 수 없다는 사실과 정합적입니다).
 
@@ -605,10 +605,10 @@ $$
 
 ## A.3 — Hansen–Jagannathan Bound의 도출 (§1.5)
 
-**스칼라 형태 (5.14).** $R^e$가 초과수익률이므로 $0=E(mR^e)=E(m)E(R^e)+\mathrm{cov}(m,R^e)$. $\mathrm{cov}(m,R^e)=\rho_{m,R^e}\sigma(m)\sigma(R^e)$이고 $|\rho|\le1$이므로
+**스칼라 형태 (5.14).** $R^e$가 초과수익률이므로 $0=E(mR^e)=E(m)E(R^e)+\mathrm{cov}(m,R^e)$. $\mathrm{cov}(m,R^e)=\rho_{m,R^e}\sigma(m)\sigma(R^e)$이고 $\lvert \rho\rvert\le1$이므로
 
 $$
-\frac{|E(R^e)|}{\sigma(R^e)} = |\rho_{m,R^e}|\frac{\sigma(m)}{E(m)} \le \frac{\sigma(m)}{E(m)}
+\frac{\lvert E(R^e)\rvert}{\sigma(R^e)} = \lvert \rho_{m,R^e}\rvert\frac{\sigma(m)}{E(m)} \le \frac{\sigma(m)}{E(m)}
 $$
 
 **행렬 형태 (5.16)-(5.17).** $p=E(mx)$를 만족하는 임의의 $m$을 $\Sigma_x\equiv\mathrm{cov}(x,x')$에 대해 다음처럼 회귀식으로 씁니다.
@@ -825,7 +825,7 @@ $$
 
 ## A.10 — Stein's Lemma를 이용한 선형화 (§5.1)
 
-**Stein's Lemma.** $f,R$이 이변량정규이고 $g$가 미분가능, $E|g'(f)|<\infty$이면 $\mathrm{cov}[g(f),R]=E[g'(f)]\,\mathrm{cov}(f,R)$.
+**Stein's Lemma.** $f,R$이 이변량정규이고 $g$가 미분가능, $E\lvert g'(f)\rvert<\infty$이면 $\mathrm{cov}[g(f),R]=E[g'(f)]\,\mathrm{cov}(f,R)$.
 
 이를 이용해 일반적인 비선형 할인인자 $m=g(f)$를 선형화합니다.
 
@@ -837,7 +837,7 @@ $$
 = E\Big(\big\{\underbrace{E[g(f)]-E[g'(f)]E(f)}_{a} + \underbrace{E[g'(f)]}_{b}f\big\}\,x\Big)
 $$
 
-즉 $m=a+bf$ 형태의 (근사가 아니라, 정규분포 가정 하에서는 **정확한**) 선형 할인인자를 얻습니다. 2기간 모형의 임의의 효용함수 $u$에 대해서도, $g(R^W)=u'(R^W(W_t-c_t))/u'(c_t)$로 두고 Stein's Lemma를 적용하면 정규분포 가정만으로(이차효용을 가정하지 않고도) 같은 선형 구조를 얻을 수 있습니다 — 단, 로그효용의 경우 $g(R^W)=1/R^W$의 $E|g'(R^W)|=E(1/R^{W2})$가 $R^W$가 정규분포일 때 발산하므로 이 트릭이 적용되지 않습니다. $\blacksquare$
+즉 $m=a+bf$ 형태의 (근사가 아니라, 정규분포 가정 하에서는 **정확한**) 선형 할인인자를 얻습니다. 2기간 모형의 임의의 효용함수 $u$에 대해서도, $g(R^W)=u'(R^W(W_t-c_t))/u'(c_t)$로 두고 Stein's Lemma를 적용하면 정규분포 가정만으로(이차효용을 가정하지 않고도) 같은 선형 구조를 얻을 수 있습니다 — 단, 로그효용의 경우 $g(R^W)=1/R^W$의 $E\lvert g'(R^W)\rvert=E(1/R^{W2})$가 $R^W$가 정규분포일 때 발산하므로 이 트릭이 적용되지 않습니다. $\blacksquare$
 
 ## A.11 — ICAPM의 연속시간 도출 (§5.2)
 
@@ -874,7 +874,7 @@ $$
 $E(\varepsilon^i)=0$이므로 $\mathrm{var}(\varepsilon^i)=E(\varepsilon^{i2})$이고, 코시-슈바르츠 부등식에 의해
 
 $$
-|E(m\varepsilon^i)| \le \sqrt{E(m^2)}\cdot\sqrt{E(\varepsilon^{i2})} = \sqrt{E(m^2)}\cdot\sqrt{\mathrm{var}(\varepsilon^i)}
+\lvert E(m\varepsilon^i)\rvert \le \sqrt{E(m^2)}\cdot\sqrt{E(\varepsilon^{i2})} = \sqrt{E(m^2)}\cdot\sqrt{\mathrm{var}(\varepsilon^i)}
 $$
 
 $m$이 고정되어 있으므로 $E(m^2)$은 유한한 상수이고, $\mathrm{var}(\varepsilon^i)\to0$이면 우변 전체가 $0$으로 수렴합니다. 따라서 $p(x^i)\to p(\beta_i'f)$. $\blacksquare$
