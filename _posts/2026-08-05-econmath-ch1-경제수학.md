@@ -192,3 +192,4 @@ axes[0].set_xlim(0, 10.8)
 
 plt.tight_layout()
 plt.savefig("fig2_profit_max.png", dpi=150)
+```
