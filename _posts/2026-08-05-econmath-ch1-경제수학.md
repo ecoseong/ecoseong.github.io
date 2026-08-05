@@ -192,6 +192,3 @@ axes[0].set_xlim(0, 10.8)
 
 plt.tight_layout()
 plt.savefig("fig2_profit_max.png", dpi=150)
-```
-
-> 참고: `Noto Sans CJK` 폰트 경로는 리눅스 기준이며, macOS/Windows에서는 각각 `AppleGothic`, `Malgun Gothic` 등 로컬에 설치된 한글 폰트 이름으로 교체해서 사용하면 된다.
